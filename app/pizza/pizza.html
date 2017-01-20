@@ -1,0 +1,40 @@
+<div class="pizza">
+    <h1>{{vm.title}}</h1>
+
+    <h2>Topping search:</h2>
+
+    <label for="pizza-topping"></label>
+    <input class="form-control" id="pizza-topping" type="text" ng-model="vm.search"/>
+
+    <div class="pizza-topping-results" ng-show="vm.search">
+        <p>Search results:</p>
+        <ul>
+            <li ng-repeat="t in filteredItems = (vm.searchAvailableToppings | filter:vm.search)">
+                <span style="cursor: pointer" ng-click="vm.addTopping(t)">{{t}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="alert alert-danger" ng-if="vm.search.length > 0 && filteredItems.length === 0">
+        <span>No results</span>
+    </div>
+    
+    <div class="alert alert-success" ng-show="vm.alertSuccess">
+        <span>Topping added</span>
+        <button ng-click="vm.close()" class="btn btn-default badge pull-right">X</button>
+    </div>
+
+
+    <div ng-hide="vm.search">
+        Enter the search criteria above.
+    </div>
+
+
+    <h3 ng-show="vm.toppings.length !== 0">Selected toppings:</h3>
+
+    <div ng-repeat="t in vm.toppings">
+        {{t}}
+    </div>
+</div>
+
+

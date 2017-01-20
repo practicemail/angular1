@@ -29,6 +29,13 @@
                 controllerAs: "vm"
             })
 
+            .state("pizza", {
+                url:"/pizza/",
+                templateUrl: "app/pizza/pizza.html",
+                controller: "PizzaController",
+                controllerAs: "vm"
+            })
+
 
     }
 
