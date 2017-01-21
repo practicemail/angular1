@@ -10,5 +10,12 @@
     function PromisesExampleService() {
         var promiseservice = this;
 
+        promiseservice.model = {
+            number: 0,
+            result: "Ready!"
+        };
+
+
+
     }
 })();

@@ -1,1 +1,12 @@
-Hello promises!
+<h1>Hello promises!</h1>
+
+
+<div class="container">
+    <input type="number" ng-model="vm.model.number" class="form-control"/>
+    <br/>
+    <br/>
+    <input type="button" class="btn btn-primary" value="Check Odd Number" ng-click="vm.checkOddNumber(vm.model.number)"/>
+    <br/>
+    <br/>
+    <pre>{{vm.model.result}}</pre>
+</div>
