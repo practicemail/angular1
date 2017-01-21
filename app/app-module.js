@@ -36,6 +36,13 @@
                 controllerAs: "vm"
             })
 
+            .state("promises-example", {
+                url: "/promises-example/",
+                templateUrl: "app/promises-example/promises-example.html",
+                controller: "PromisesExampleController",
+                controllerAs: "vm"
+            })
+
 
     }
 
