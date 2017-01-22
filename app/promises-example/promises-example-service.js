@@ -5,17 +5,28 @@
         .module("app")
         .service("PromisesExampleService", PromisesExampleService);
 
-    PromisesExampleService.$inject = [];
+    PromisesExampleService.$inject = ["$resource"];
 
-    function PromisesExampleService() {
+    function PromisesExampleService($resource) {
         var promiseservice = this;
 
-        promiseservice.model = {
-            number: 0,
-            result: "Ready!"
-        };
+        return $resource("https://api.github.com/:action/:org/:id",
+            {
+                action: "@action",
+                org: "@org",
+                id: "@id"
+            },
+            {
+                getAll: {
+                    method: "GET",
+                    isArray: true,
+                    params: {action: "orgs", org:"angular", id: "repos"}
+                },
 
-
-
+                getDetail: {
+                    method: "GET",
+                    params: {action: "repos", org:"angular" }
+                }
+            });
     }
 })();

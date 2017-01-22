@@ -1,4 +1,4 @@
-<h1>Hello promises!</h1>
+<h1>Please, enter the number below. </h1>
 
 
 <div class="container">
@@ -9,4 +9,95 @@
     <br/>
     <br/>
     <pre>{{vm.model.result}}</pre>
+</div>
+
+<br/>
+<hr/>
+<br/>
+
+<div class="container">
+    <h2>This is example with real data from the server (implementing $resource service):</h2>
+
+    <div class="col-md-10">
+        <input type="text" class="form-control" placeholder="Text goes here"/>
+    </div>
+
+    <div class="col-md-2">
+        <input type="button" class="btn btn-primary" value="Load Repos" ng-click="vm.getRepos()" ng-hide="vm.repos" />
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <table class="table table-striped" ng-show="vm.repos">
+            <h3><b>Results:</b></h3>
+
+                <tr>
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Language
+                    </th>
+                    <th></th>
+                </tr>
+
+
+                <tr ng-repeat="r in vm.repos">
+                    <td>
+                        <h4>{{r.name}}</h4> {{r.description}}
+                    </td>
+
+                    <td>
+                        {{r.language}}
+                    </td>
+
+                    <td>
+                        <input type="button" class="btn btn-success" value="Detail" ng-click="vm.loadDetail(r.name)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-5" ng-show="vm.detail">
+            <h3>Detail</h3>
+
+            <div ng-show="vm.detail.error" class="alert alert-danger">
+                <h3>Error</h3>
+                {{vm.detail.message}}
+            </div>
+
+            <div>
+                <h4>Name</h4>
+                {{vm.detail.name}}
+            </div>
+
+            <div>
+                <h4>Description</h4>
+                {{vm.detail.description}}
+            </div>
+
+            <h4>URL</h4>
+            <a ng-href="{{vm.detail.html_url}}" target="_blank">
+                {{vm.detail.html_url}}
+            </a>
+
+
+            <h4>Raw Data</h4>
+            <pre>{{vm.detail | json}}</pre>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="alert alert-danger">No results. Please, try again.</div>
+        </div>
+    </div>
+
+    <p>This could be also an example with real data from the server (implementing <b>$http</b> service):</p>
 </div>
