@@ -15,6 +15,8 @@
         vm.isNumberOdd = isNumberOdd;
         vm.getRepos = getRepos;
         vm.loadDetail = loadDetail;
+        vm.filterRepos = filterRepos;
+        vm.search = "";
 
         vm.model = {
             number: 0,
@@ -74,6 +76,13 @@
 
             //$resource service (we included data from PromisesExampleService service)
             vm.repos = PromisesExampleService.getAll();
+        }
+
+        function filterRepos(term) {
+            if (vm.search) {
+                return term.name.indexOf(vm.search) == 0;
+            }
+            return vm.repos = null;
 
         }
 

@@ -8,9 +8,9 @@
     PromisesExampleService.$inject = ["$resource"];
 
     function PromisesExampleService($resource) {
-        var promiseservice = this;
+        var service = this;
 
-        return $resource("https://api.github.com/:action/:org/:id",
+        service.data =  $resource("https://api.github.com/:action/:org/:id",
             {
                 action: "@action",
                 org: "@org",
@@ -26,7 +26,14 @@
                 getDetail: {
                     method: "GET",
                     params: {action: "repos", org:"angular" }
+                },
+
+                getFilterRepos: {
+                    method: "GET",
+                    params: { action: "angular"}
                 }
             });
+
+        return service.data;
     }
 })();

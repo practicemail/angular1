@@ -19,11 +19,11 @@
     <h2>This is example with real data from the server (implementing $resource service):</h2>
 
     <div class="col-md-10">
-        <input type="text" class="form-control" placeholder="Text goes here"/>
+        <input type="text" class="form-control" placeholder="Text goes here" ng-model="vm.search"/>
     </div>
 
     <div class="col-md-2">
-        <input type="button" class="btn btn-primary" value="Load Repos" ng-click="vm.getRepos()" ng-hide="vm.repos" />
+        <input type="button" class="btn btn-primary" value="Load Repos" ng-click="vm.getRepos()" />
     </div>
 
     <br/>
@@ -31,10 +31,10 @@
     <br/>
     <br/>
 
-    <div class="row">
+    <div class="row" ng-show="vm.repos">
 
         <div class="col-md-6">
-            <table class="table table-striped" ng-show="vm.repos">
+            <table class="table table-striped">
             <h3><b>Results:</b></h3>
 
                 <tr>
@@ -49,7 +49,7 @@
                 </tr>
 
 
-                <tr ng-repeat="r in vm.repos">
+                <tr ng-repeat="r in filteredItems = ( vm.repos | filter: vm.filterRepos)">
                     <td>
                         <h4>{{r.name}}</h4> {{r.description}}
                     </td>
@@ -94,10 +94,11 @@
 
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" ng-if="vm.search.length > 0 && filteredItems.length === 0">
             <div class="alert alert-danger">No results. Please, try again.</div>
         </div>
     </div>
 
     <p>This could be also an example with real data from the server (implementing <b>$http</b> service):</p>
+    <pre>{{vm.search}}</pre>
 </div>

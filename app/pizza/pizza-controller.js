@@ -15,7 +15,6 @@
         vm.toppings = [];
         vm.alertSuccess = false;
         vm.alertDanger = false;
-        vm.bla = '';
 
         init();
 
