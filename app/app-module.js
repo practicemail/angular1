@@ -43,6 +43,12 @@
                 controllerAs: "vm"
             })
 
+            .state("validation", {
+                url: "/validation/",
+                templateUrl: "app/validation/validation.html",
+                controller: "ValidationController",
+                controllerAs: "vm"
+            })
 
     }
 

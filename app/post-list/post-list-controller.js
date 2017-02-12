@@ -5,13 +5,17 @@
         .module("app")
         .controller("PostListController", PostListController);
 
-    PostListController.$inject = ["PostService", "AuthorService"];
+    PostListController.$inject = ["PostService", "PostListService", "AuthorService"];
 
-    function PostListController(PostService, AuthorService) {
+    function PostListController(PostService, PostListService, AuthorService) {
         var vm = this;
         vm.currentDate = new Date();
         vm.int = 32243;
         vm.intString = null;
+        vm.getPosts = getPosts;
+        vm.getUsers = getUsers;
+        vm.posts = null;
+        vm.users = null;
 
         vm.reverseInt = function() {
             vm.intString = vm.int.toString().split("").reverse().join("");
@@ -31,28 +35,45 @@
         function init() {
         }
 
-        vm.ab = function() {
-            var a = PostService.getPosts();
-            var b = AuthorService.getUsers();
+        function getPosts() {
+            vm.posts = PostListService.getPostsData();
 
-            a.then(function(data) {
-                vm.postData = data;
+            console.log(vm.posts);
+        }
 
-                b.then(function(data) {
-                    vm.userData = data;
-                    var i;
-                    for (i = 0; i < vm.userData.data.length; i++) {
-                        var j;
-                        for (j = 0;j < vm.postData.data.length; j++) {
-                            if(vm.userData.data[i].id == vm.postData.data[j].id) {
-                                vm.postData.data[j].author = vm.userData.data[i].name;
-                                //console.log(vm.postData.data[j]);
-                            }
-                        }
-                    }
-                });
-            });
-        };
-        vm.ab();
+        vm.getPosts();
+
+        function getUsers() {
+            vm.users = PostListService.getUsersData();
+        }
+
+        vm.getUsers();
+
+
+
+
+        //vm.ab = function() {
+        //    var a = PostService.getPosts();
+        //    var b = AuthorService.getUsers();
+        //
+        //    a.then(function(data) {
+        //        vm.postData = data;
+        //
+        //        b.then(function(data) {
+        //            vm.userData = data;
+        //            var i;
+        //            for (i = 0; i < vm.userData.data.length; i++) {
+        //                var j;
+        //                for (j = 0;j < vm.postData.data.length; j++) {
+        //                    if(vm.userData.data[i].id == vm.postData.data[j].id) {
+        //                        vm.postData.data[j].author = vm.userData.data[i].name;
+        //                        //console.log(vm.postData.data[j]);
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    });
+        //};
+        //vm.ab();
     }
 })();

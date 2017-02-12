@@ -12,9 +12,9 @@
     </div>
 </div>
 
-<div ng-repeat="post in vm.postData.data | limitTo:10">
+<div ng-repeat="post in vm.posts.concat(vm.users) | limitTo:10">
     <a href="#" ui-sref="post-details"><span class="post"><h3>{{post.title}}</h3></span></a>
-    <a href="#" ui-sref="author-details"><span class="author">{{post.author}}</span></a>
+    <a href="#" ui-sref="author-details"><span class="author">{{post.name}}</span></a>
     <br>
     <hr>
 </div>
