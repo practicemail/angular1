@@ -5,61 +5,29 @@
         .module("app")
         .service("PostListService", PostListService);
 
-    PostListService.$inject = ["$resource"];
+    PostListService.$inject = ["$http", "$q"];
 
-    function PostListService($resource) {
+    function PostListService($http, $q) {
         var service = this;
 
-        service.data = $resource("http://jsonplaceholder.typicode.com/:org/:id",
-            {
-                id: "@id",
-                org: "@org"
-            },
-            {
-                getPostsData: {
-                    method: "GET",
-                    isArray: true,
-                    params: {org: "posts"}
-                },
+        var deferred = $q.defer();
 
-                getUsersData: {
-                    method: "GET",
-                    isArray: true,
-                    params: {org: "users"}
-                }
-            });
+        $http.get('http://jsonplaceholder.typicode.com/posts').then(function(data) {
+            deferred.resolve(data);
+        });
 
-        return service.data;
+        service.getPosts = function() {
+            return deferred.promise;
+        };
 
 
-        //var deferred = $q.defer();
-        //
-        //$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data) {
-        //    deferred.resolve(data);
-        //});
-        //
-        //service.getPosts = function() {
-        //    return deferred.promise;
-        //};
-        //
-        //
-        //$http.get('http://jsonplaceholder.typicode.com/users').then(function(data) {
-        //    deferred.resolve(data);
-        //});
-        //
-        //service.getUsers = function() {
-        //    return deferred.promise;
-        //};
+        $http.get('http://jsonplaceholder.typicode.com/users').then(function(data) {
+            deferred.resolve(data);
+        });
 
-
-
-
-        //return {
-        //    get: function() {
-        //        return {"name":"Ivan","age":26};
-        //    }
-        //};
-
+        service.getUsers = function() {
+            return deferred.promise;
+        };
     }
 
 })();
