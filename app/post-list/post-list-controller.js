@@ -5,13 +5,15 @@
         .module("app")
         .controller("PostListController", PostListController);
 
-    PostListController.$inject = ["PostService", "PostListService", "AuthorService"];
+    PostListController.$inject = ["PostService", "AuthorService", "PostListService"];
 
-    function PostListController(PostService, PostListService, AuthorService) {
+    function PostListController(PostService, AuthorService, PostListService) {
         var vm = this;
         vm.currentDate = new Date();
         vm.int = 32243;
         vm.intString = null;
+        vm.loadPostDetails = PostListService.loadPostDetails;
+
 
         vm.reverseInt = function() {
             vm.intString = vm.int.toString().split("").reverse().join("");
@@ -43,14 +45,16 @@
                     vm.userData = data;
                     var i;
                     for (i = 0; i < vm.userData.data.length; i++) {
+
                         var j;
-                            if(vm.userData.data[i].id == vm.postData.data[j].id) {
+                        for (j = 0; j < vm.postData.data.length; j++) {
+                            if(vm.userData.data[i].id === vm.postData.data[j].id) {
                                 vm.postData.data[j].author = vm.userData.data[i].name;
                             }
                         }
                     }
-                });
-            });
+                })
+                })
         };
 
         vm.ab();

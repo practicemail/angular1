@@ -5,51 +5,34 @@
         .module("app")
         .controller("PostDetailsController", PostDetailsController);
 
-    PostDetailsController.$inject = ["PostService","AuthorService","$stateParams"];
+    PostDetailsController.$inject = ["PostService","AuthorService","PostListService"];
 
-    function PostDetailsController(PostService,AuthorService,$stateParams) {
+    function PostDetailsController(PostService,AuthorService, PostListService) {
         var vm = this;
-        vm.postId = PostService.postId;
+        vm.ab = ab;
+        vm.postDetails = PostListService.postDetails;
 
         init();
 
         function init() {
-
+            console.log(vm.postDetails);
         }
 
-        //var post = PostService.getPosts();
-        //
-        //    post.then(function(data) {
-        //       vm.post = data;
-        //        console.log(vm.post);
-        //    });
+        function ab() {
+            var b = AuthorService.getUsers();
 
+            b.then(function(data) {
+                vm.userData = data;
 
+                for (var i = 0; i < vm.userData.data.length; i++) {
+                    if (vm.userData.data[i].id === vm.postDetails.id) {
+                        return vm.postDetails.author = vm.userData.data[i].name;
+                    }
+                }
+            })
+        }
 
-        //vm.ab = function() {
-        //    var a = PostService.getPosts();
-        //    var b = AuthorService.getUsers();
-        //
-        //    a.then(function(data) {
-        //        vm.postData = data;
-        //
-        //        b.then(function(data) {
-        //            vm.userData = data;
-        //            var i;
-        //            for (i = 0; i < vm.userData.data.length; i++) {
-        //                var j;
-        //                for (j = 0;j < vm.postData.data.length; j++) {
-        //                    if(vm.userData.data[i].id == vm.postData.data[j].id) {
-        //                        vm.postData.data[j].author = vm.userData.data[i].name;
-        //                        console.log(vm.postData.data[j]);
-        //                    }
-        //                }
-        //            }
-        //        });
-        //    });
-        //};
-        //vm.ab();
-
+        vm.ab();
 
     }
 })();

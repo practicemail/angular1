@@ -5,29 +5,24 @@
         .module("app")
         .service("PostListService", PostListService);
 
-    PostListService.$inject = ["$http", "$q"];
+    PostListService.$inject = ["$http", "$q","$resource"];
 
-    function PostListService($http, $q) {
+    function PostListService($http, $q, $resource) {
         var service = this;
+        service.loadPostDetails = loadPostDetails;
 
-        var deferred = $q.defer();
+        service.postItem =  $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"},
+            {
+                getPostItem: {
+                    method: "GET"
+                }
+            }
+        );
 
-        $http.get('http://jsonplaceholder.typicode.com/posts').then(function(data) {
-            deferred.resolve(data);
-        });
-
-        service.getPosts = function() {
-            return deferred.promise;
-        };
-
-
-        $http.get('http://jsonplaceholder.typicode.com/users').then(function(data) {
-            deferred.resolve(data);
-        });
-
-        service.getUsers = function() {
-            return deferred.promise;
-        };
+        function loadPostDetails(term) {
+            service.postDetails = null;
+            return service.postDetails = service.postItem.getPostItem({id: term});
+        }
     }
 
 })();

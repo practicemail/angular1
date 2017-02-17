@@ -29,6 +29,13 @@
                 controllerAs: "vm"
             })
 
+            .state("post-author", {
+                url:"/author/:postId",
+                templateUrl: "app/post-details/post-author.html",
+                controller: "PostAuthorController",
+                controllerAs: "vm"
+            })
+
             .state("pizza", {
                 url:"/pizza/",
                 templateUrl: "app/pizza/pizza.html",
