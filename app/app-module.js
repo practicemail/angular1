@@ -8,10 +8,11 @@
 
     appModuleConfig.$inject = [
         "$urlRouterProvider",
-        "$stateProvider"
+        "$stateProvider",
+        "$locationProvider"
     ];
 
-    function appModuleConfig($urlRouterProvider,$stateProvider){
+    function appModuleConfig($urlRouterProvider,$stateProvider,$locationProvider){
         $urlRouterProvider.otherwise("/");
 
         $stateProvider
@@ -23,16 +24,16 @@
             })
 
             .state("post-details", {
-                url:"/post/:postId",
+                url:"/post/{postId}",
                 templateUrl: "app/post-details/post-details.html",
                 controller: "PostDetailsController",
                 controllerAs: "vm"
             })
 
             .state("post-author", {
-                url:"/author/:postId",
-                templateUrl: "app/post-details/post-author.html",
-                controller: "PostAuthorController",
+                url:"/author/{userId}",
+                templateUrl: "app/author-details/author-details.html",
+                controller: "AuthorDetailsController",
                 controllerAs: "vm"
             })
 
@@ -55,9 +56,11 @@
                 templateUrl: "app/validation/validation.html",
                 controller: "ValidationController",
                 controllerAs: "vm"
-            })
+            });
 
+        //$locationProvider.html5Mode(true);
     }
+
 
     function appModuleRun() {
         console.log("appModuleRun loaded");

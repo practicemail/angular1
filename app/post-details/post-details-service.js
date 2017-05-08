@@ -3,33 +3,18 @@
 
     angular
         .module("app")
-        .service("PostService", PostService);
+        .service("PostDetailsService", PostDetailsService);
 
-    PostService.$inject = ["$http","$q"];
+    PostDetailsService.$inject = ["$resource","$stateParams"];
 
-    function PostService($http, $q) {
+    function PostDetailsService($resource, $stateParams) {
         var service = this;
-        var deferred = $q.defer();
-        //service.postId = $stateParams.postId;
 
-        $http.get('http://jsonplaceholder.typicode.com/posts').then(function(data) {
-            deferred.resolve(data);
-        });
+        service.postsUrl = "http://jsonplaceholder.typicode.com/posts/:postId";
 
-        service.getPosts = function() {
-            return deferred.promise;
-        };
+        service.postItem =  $resource(service.postsUrl, {postId: "@id"});
 
-        //$http.get('http://jsonplaceholder.typicode.com/posts/').then(function(data) {
-        //deferred.resolve(data);
-        //console.log(data);
-        //service.postId = data.id;
-        //console.log(service.postId);
-        //});
-
-
-        //service.getPost = function() {
-        //    return deferred.promise;
-        //}
+        service.postComments = $resource(service.postsUrl + "/comments", {postId: "@id"});
     }
+
 })();

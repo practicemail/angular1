@@ -5,19 +5,39 @@
         .module("app")
         .service("AuthorService", AuthorService);
 
-    AuthorService.$inject = ["$http","$q"];
+    AuthorService.$inject = ["$resource"];
 
-    function AuthorService($http, $q) {
+    function AuthorService($resource) {
         var service = this;
-        var deferred = $q.defer();
 
-        $http.get('http://jsonplaceholder.typicode.com/users').then(function(data) {
-            deferred.resolve(data);
-        });
+        service.users =  $resource("http://jsonplaceholder.typicode.com/users/:userId",
+            {
+                userId: "@userId"
+            },
+            {
+                getUsers: {
+                    method: "GET",
+                    isArray: true
+                },
 
-        service.getUsers = function() {
-            return deferred.promise;
-        };
+                getUserItem: {
+                    method:"GET"
+                }
+            }
+        );
+
+        return service.users;
+
+
+        //var deferred = $q.defer();
+
+        //$http.get('http://jsonplaceholder.typicode.com/users').then(function(data) {
+        //    deferred.resolve(data);
+        //});
+        //
+        //service.getUsers = function() {
+        //    return deferred.promise;
+        //};
     }
 
 })();

@@ -1,4 +1,23 @@
 <div>
-    <h1>{{vm.postDetails.title}}</h1>
-    <h2 class="pull-right">{{vm.postDetails.author}}</h2>
+    <h1>{{vm.postD.id}}</h1>
+    <h1 class="text-center">{{vm.postD.title}}</h1>
+    <div class="text-right">
+        Author: <a href="#" ui-sref="post-author({userId: vm.postD.authorId})">{{vm.postD.author}}</a>
+    </div>
+    <br/>
+    <br/>
+
+    <p>{{vm.postD.body}}</p>
+    <br/>
+    <h4>Comments:</h4>
+
+    <ul>
+        <div ng-repeat="comment in vm.postComments"
+             style="border: 2px dotted blue; margin-bottom: 20px; padding: 15px">
+            <p>{{comment.name}}</p>
+            <p>{{comment.email}}</p>
+            <p>{{comment.body}}</p>
+        </div>
+    </ul>
 </div>
+

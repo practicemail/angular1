@@ -5,11 +5,13 @@
         <title>Angular Project</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <base href="/angular1/">
     </head>
 
     <body ng-app="app">
         <div class="container">
-            <header ng-include="'app/components/header/header.html'"></header>
+            <!--<header ng-include="'app/components/header/header.html'"></header>-->
+            <app-header></app-header>
             <div ui-view></div>
         </div>
 
@@ -20,11 +22,16 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
 
         <script src="app/app-module.js"></script>
+        <script src="app/components/header/header-component.js"></script>
+        <script src="app/search-service.js"></script>
+
+
         <script src="app/post-list/post-list-service.js"></script>
         <script src="app/post-list/post-list-controller.js"></script>
-        <script src="app/author-details/author-details-service.js"></script>
-        <script src="app/post-details/post-details-controller.js"></script>
         <script src="app/post-details/post-details-service.js"></script>
+        <script src="app/post-details/post-details-controller.js"></script>
+        <script src="app/author-details/author-details-service.js"></script>
+        <script src="app/author-details/author-details-controller.js"></script>
 
         <!--This is for the pizza app-->
         <script src="app/pizza/pizza-controller.js"></script>

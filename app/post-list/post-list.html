@@ -1,3 +1,48 @@
+<div ng-if="searchData.length > 0">
+    <h2>Search results:</h2>
+    <div ng-repeat="result in filteredItems = (vm.postData.data | filter:searchData)">
+        <ul>
+            <li>
+                <a href="#" ui-sref="post-details({postId: result.id})"><span>{{result.title}}</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br/>
+<br/>
+<h1 class="text-center">Post List</h1>
+<br/>
+<br/>
+<div ng-repeat="post in vm.postData.data | limitTo:10">
+    <h3>
+        <a href="#" ui-sref="post-details({postId: post.id})"><span>{{post.title}}</span></a>
+    </h3>
+
+    <a href="#" ui-sref="post-author({userId: post.authorId})"><span>{{post.author}}</span></a>
+    <br>
+    <hr>
+</div>
+
+
+
+
+
+
+<br/><br/><br/>
+<h2 class="text-center">More exercises:</h2>
+<br/>
+
+<h3>
+    <a ui-sref="pizza">Pizza Builder (Search)</a>
+    <br/>
+    <a ui-sref="promises-example">Promises</a>
+    <br/>
+    <a ui-sref="validation">Validation</a>
+</h3>
+<br/> <br/> <br/>
+<hr/>
+
 <div>
     <div class="vezba1">
         Today is: {{vm.currentDate | date:'EEEE'}}<br/>
@@ -8,15 +53,6 @@
         <button ng-click="vm.printCurrentPage()">Print the page</button>
     </div>
     <div class="vezba3">
-        {{vm.int}} -> {{vm.inverseNumber}}
+        Inverse number: {{vm.int}} -> {{vm.inverseNumber}}
     </div>
 </div>
-
-<div ng-repeat="post in vm.postData.data | limitTo:10">
-    <a href="#" ui-sref="post-details" ng-click="vm.loadPostDetails(post.id)"><span class="post"><h3>{{post.title}}</h3></span></a>
-
-    <a href="#" ui-sref="author-details"><span class="author">{{post.author}}</span></a>
-    <br>
-    <hr>
-</div>
-

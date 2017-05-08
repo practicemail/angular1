@@ -5,34 +5,33 @@
         .module("app")
         .controller("PostDetailsController", PostDetailsController);
 
-    PostDetailsController.$inject = ["PostService","AuthorService","PostListService"];
+    PostDetailsController.$inject = ["PostService","AuthorService","PostDetailsService","$stateParams"];
 
-    function PostDetailsController(PostService,AuthorService, PostListService) {
+    function PostDetailsController(PostService,AuthorService, PostDetailsService,$stateParams) {
         var vm = this;
-        vm.ab = ab;
-        vm.postDetails = PostListService.postDetails;
+        vm.postD = {};
+        vm.postDetails = PostDetailsService.postItem.get({postId: $stateParams.postId});
+        vm.postComment = PostDetailsService.postComments.query({postId: $stateParams.postId});
+        vm.authors = AuthorService.getUsers();
 
-        init();
+        vm.postDetails.$promise.then(function(pData) {
+            vm.postD = pData;
 
-        function init() {
-            console.log(vm.postDetails);
-        }
+            vm.authors.$promise.then(function(aData) {
+                vm.authorData = aData;
 
-        function ab() {
-            var b = AuthorService.getUsers();
-
-            b.then(function(data) {
-                vm.userData = data;
-
-                for (var i = 0; i < vm.userData.data.length; i++) {
-                    if (vm.userData.data[i].id === vm.postDetails.id) {
-                        return vm.postDetails.author = vm.userData.data[i].name;
+                for (var i = 0; i < vm.authorData.length; i++) {
+                    if (vm.authorData[i].id === vm.postD.userId) {
+                        vm.postD.author = vm.authorData[i].name;
+                        vm.postD.authorId = vm.authorData[i].id;
                     }
                 }
+
             })
-        }
+        });
 
-        vm.ab();
-
+        vm.postComment.$promise.then(function(cData) {
+            vm.postComments = cData;
+        });
     }
 })();

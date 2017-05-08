@@ -3,26 +3,20 @@
 
     angular
         .module("app")
-        .service("PostListService", PostListService);
+        .service("PostService", PostService);
 
-    PostListService.$inject = ["$http", "$q","$resource"];
+    PostService.$inject = ["$http","$q"];
 
-    function PostListService($http, $q, $resource) {
+    function PostService($http, $q) {
         var service = this;
-        service.loadPostDetails = loadPostDetails;
+        var deferred = $q.defer();
 
-        service.postItem =  $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"},
-            {
-                getPostItem: {
-                    method: "GET"
-                }
-            }
-        );
+        $http.get('http://jsonplaceholder.typicode.com/posts').then(function(data) {
+            deferred.resolve(data);
+        });
 
-        function loadPostDetails(term) {
-            service.postDetails = null;
-            return service.postDetails = service.postItem.getPostItem({id: term});
-        }
+        service.getPosts = function() {
+            return deferred.promise;
+        };
     }
-
 })();

@@ -1,1 +1,19 @@
-<h1>Hello this is author details</h1>
+<br/>
+<br/>
+<h1 class="text-center">{{vm.authorData.name}}</h1>
+
+<div class="clearfix">
+    <div class="pull-right">
+        <p>From: {{vm.authorData.address.city}}</p>
+        <p>Email the author: {{vm.authorData.email}}</p>
+    </div>
+</div>
+
+<br/>
+<br/>
+<hr/>
+
+<p>{{vm.authorData.name}}'s posts: </p>
+<ul>
+    <li ng-repeat="post in vm.authorPosts">{{post.title}}</li>
+</ul>
