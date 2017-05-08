@@ -5,9 +5,9 @@
         .module("app")
         .service("PostDetailsService", PostDetailsService);
 
-    PostDetailsService.$inject = ["$resource","$stateParams"];
+    PostDetailsService.$inject = ["$resource"];
 
-    function PostDetailsService($resource, $stateParams) {
+    function PostDetailsService($resource) {
         var service = this;
 
         service.postsUrl = "http://jsonplaceholder.typicode.com/posts/:postId";
