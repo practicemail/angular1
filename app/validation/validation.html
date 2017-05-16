@@ -25,7 +25,12 @@
             </div>
 
             <div class="col-md-5">
-                <input type="password" name="password" class="form-control" ng-model="vm.model.password" required />
+                <!--ng-minlength="8"-->
+                <input type="password" ng-pattern="vm.regex" name="password" class="form-control" ng-model="vm.model.password" required />
+                <small class="text-danger" ng-show="!form.password.$valid">
+                    Please, enter minimum 8 characters, at least 1 uppercase alphabet, 1 lowercase alphabet, 1 number and 1 special character
+                </small>
+                <small class="text-danger" ng-show="myForm.price_field.$error.pattern">Not a valid pattern!</small>
                 <br/>
 
                 <div class="alert alert-danger" ng-show="(form.password.$touched || form.$submitted) && form.password.$error.required">

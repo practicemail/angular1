@@ -5,37 +5,14 @@
         .module("app")
         .controller("PostListController", PostListController);
 
-    PostListController.$inject = ["$scope", "PostService", "AuthorService", "SearchService"];
+    PostListController.$inject = ["$state", "$scope", "PostService", "AuthorService", "$stateParams"];
 
-    function PostListController($scope, PostService, AuthorService, SearchService) {
+    function PostListController($state, $scope, PostService, AuthorService, $stateParams) {
         var vm = this;
         var scope = $scope;
         vm.currentDate = new Date();
         vm.int = 32243;
         vm.intString = null;
-
-        scope.searchData = "";
-
-        scope.$watch(function() {
-            return SearchService.search
-        }, function(newVal) {
-            if (newVal && typeof newVal !== "undefined") {
-                scope.searchData = SearchService.search;
-            } else if (newVal === false) {
-                scope.searchData = false;
-            }
-        });
-
-        vm.reverseInt = function() {
-            vm.intString = vm.int.toString().split("").reverse().join("");
-            vm.inverseNumber = Number(vm.intString);
-        };
-
-        vm.reverseInt();
-
-        vm.printCurrentPage = function() {
-            window.print();
-        };
 
         vm.ab = function() {
             var a = PostService.getPosts();
@@ -61,5 +38,28 @@
         };
 
         vm.ab();
+
+        vm.reverseInt = function() {
+            vm.intString = vm.int.toString().split("").reverse().join("");
+            vm.inverseNumber = Number(vm.intString);
+        };
+
+        vm.reverseInt();
+
+        vm.printCurrentPage = function() {
+            window.print();
+        };
+
+        //window.onbeforeunload = function(event) {
+        //    if ($state.current.controller === 'PostListController') {
+        // Ask the user if he wants to reload
+        //return 'Are you sure you want to reload?'
+        //}
+
+        //else {
+        // Allow reload without any alert
+        //event.preventDefault()
+        //}
+        //};
     }
 })();

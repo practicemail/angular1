@@ -12,12 +12,7 @@
         vm.reset = reset;
         vm.model = {};
         vm.submit = submit;
-
-        init();
-
-        function init() {
-
-        }
+        vm.regex = /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
 
         vm.reset();
 
